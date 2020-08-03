@@ -1,0 +1,29 @@
+{
+  "name": "tutorial-playwright-basic",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://applitools.com",
+  "author": {
+    "name": "Applitools Team",
+    "email": "team@applitools.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/applitools/tutorial-playwright-basic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/applitools/tutorial-playwright-basic/issues"
+  },
+  "dependencies": {
+    "@applitools/eyes-playwright": "latest",
+    "mocha": "^8.1.0",
+    "playwright": "^1.2.1"
+  },
+  "scripts": {
+    "test": "mocha --no-timeouts 'test/*.test.js'"
+  },
+  "license": "ISC",
+  "engines": {
+    "node": ">=8.9.0"
+  }
+}
