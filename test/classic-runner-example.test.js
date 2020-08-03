@@ -1,11 +1,17 @@
 'use strict';
 
 const { Eyes, ClassicRunner, Target, RectangleSize, Configuration, BatchInfo} = require('@applitools/eyes-playwright');
+const playwright = require('playwright')
 
 describe('DemoApp - ClassicRunner', function () {
-  let runner, eyes;
+  let runner, eyes, browser, page;
 
   beforeEach(async () => {
+    // Initialize the playwright browser
+    browser = await playwright.chromium.launch()
+    const context = await browser.newContext();
+    page = await context.newPage();
+    
     // Initialize the Runner for your test.
     runner = new ClassicRunner();
 
@@ -27,13 +33,13 @@ describe('DemoApp - ClassicRunner', function () {
 
   it('Smoke Test', async () => {
     // Start the test by setting AUT's name, test name and viewport size (width X height)
-    await eyes.open(browser, 'Demo App', 'Smoke Test', new RectangleSize(800, 600));
+    await eyes.open(page, 'Demo App', 'Smoke Test', new RectangleSize(800, 600));
 
     // Navigate the browser to the "ACME" demo app.
-    browser.get("https://demo.applitools.com");
+    await page.goto("https://demo.applitools.com");
 
     // To see visual bugs after the first run, use the commented line below instead.
-    // await browser.get("https://demo.applitools.com/index_v2.html");
+    // await page.goto("https://demo.applitools.com/index_v2.html");
 
     // Visual checkpoint #1 - Check the login page.
     await eyes.check("Login Window", Target.window().fully());
@@ -49,6 +55,9 @@ describe('DemoApp - ClassicRunner', function () {
   });
 
   afterEach(async () => {
+    // Close the browser
+    await browser.close()
+    
     // If the test was aborted before eyes.close was called, ends the test as aborted.
     await eyes.abortIfNotClosed();
 
