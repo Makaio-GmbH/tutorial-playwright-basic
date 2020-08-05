@@ -8,7 +8,7 @@ describe('DemoApp - ClassicRunner', function () {
 
   beforeEach(async () => {
     // Initialize the playwright browser
-    browser = await playwright.chromium.launch()
+    browser = await playwright.chromium.launch({headless: false})
     const context = await browser.newContext();
     page = await context.newPage();
     
@@ -45,7 +45,7 @@ describe('DemoApp - ClassicRunner', function () {
     await eyes.check("Login Window", Target.window().fully());
 
     // This will create a test with two test steps.
-    element(by.id("log-in")).click();
+    await page.click("#log-in");
 
     // Visual checkpoint #2 - Check the app page.
     await eyes.check("App Window", Target.window().fully());
@@ -62,7 +62,7 @@ describe('DemoApp - ClassicRunner', function () {
     await eyes.abortIfNotClosed();
 
     // Wait and collect all test results
-    const allTestResults = await runner.getAllTestResults();
+    const allTestResults = await runner.getAllTestResults(false);
     console.log(allTestResults);
   });
 });
