@@ -33,7 +33,7 @@ describe('DemoApp - ClassicRunner', function () {
 
   it('Smoke Test', async () => {
     // Start the test by setting AUT's name, test name and viewport size (width X height)
-    await eyes.open(page, 'Demo App', 'Smoke Test', new RectangleSize(800, 600));
+    await eyes.open(page, 'Demo App - playwright', 'Smoke Test', new RectangleSize(800, 600));
 
     // Navigate the browser to the "ACME" demo app.
     await page.goto("https://demo.applitools.com");
