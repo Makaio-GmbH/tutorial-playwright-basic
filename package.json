@@ -15,7 +15,7 @@
     "url": "https://github.com/applitools/tutorial-playwright-basic/issues"
   },
   "dependencies": {
-    "@applitools/eyes-playwright": "latest",
+    "@applitools/eyes-playwright": "^1.5.1",
     "mocha": "^8.1.0",
     "playwright": "^1.2.1"
   },

@@ -48,7 +48,7 @@ describe('DemoApp - ClassicRunner', function () {
     await eyes.check("App Window", Target.window().fully());
 
     // End the test.
-    await eyes.close();
+    await eyes.closeAsync();
   });
 
   afterEach(async () => {
