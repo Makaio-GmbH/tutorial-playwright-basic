@@ -2,13 +2,13 @@
 
 const { Eyes, ClassicRunner, Target, RectangleSize, Configuration, BatchInfo} = require('@applitools/eyes-playwright');
 const playwright = require('playwright')
-
+const headless = process.env.CI === "true";
 describe('DemoApp - ClassicRunner', function () {
   let runner, eyes, browser, page;
 
   beforeEach(async () => {
     // Initialize the playwright browser
-    browser = await playwright.chromium.launch({headless: false})
+    browser = await playwright.chromium.launch({headless})
     const context = await browser.newContext();
     page = await context.newPage();
     
@@ -48,7 +48,7 @@ describe('DemoApp - ClassicRunner', function () {
     await eyes.check("App Window", Target.window().fully());
 
     // End the test.
-    await eyes.closeAsync();
+    await eyes.close(false);
   });
 
   afterEach(async () => {
@@ -56,7 +56,7 @@ describe('DemoApp - ClassicRunner', function () {
     await browser.close()
     
     // If the test was aborted before eyes.close was called, ends the test as aborted.
-    await eyes.abortIfNotClosed();
+    await eyes.abort();
 
     // Wait and collect all test results
     const allTestResults = await runner.getAllTestResults(false);
