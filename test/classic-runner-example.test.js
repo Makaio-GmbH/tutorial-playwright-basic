@@ -33,7 +33,7 @@ describe('DemoApp - ClassicRunner', function () {
     await eyes.open(page, 'Demo App - Playwright - Classic', 'Smoke Test - Playwright - Classic', new RectangleSize(800, 600));
 
     // Navigate the browser to the "ACME" demo app.
-    await page.goto("https://demo.applitools.com/index_v2.html");
+    await page.goto("https://demo.applitools.com");
 
     // To see visual bugs after the first run, use the commented line below instead.
     // await page.goto("https://demo.applitools.com/index_v2.html");
