@@ -6,8 +6,12 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+    APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+    APPLITOOLS_BATCH_ID: ${{ github.sha }}
+    
 jobs:
-  test:
+  run-tests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,5 +29,13 @@ jobs:
       - run: npm ci
 
       - run: npm run test
-        env:
-          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+      
+  batch-completion-notification:
+    needs: run-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Applitools batch status 
+        uses: wei/curl@v1.1.1
+        with:
+          args: -d "" -X POST https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.APPLITOOLS_BATCH_ID }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
