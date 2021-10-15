@@ -8,7 +8,7 @@ on:
 
 env:
     APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-    APPLITOOLS_BATCH_ID: test
+    APPLITOOLS_BATCH_ID: ${{ github.sha }}
     
 jobs:
   run-tests:
